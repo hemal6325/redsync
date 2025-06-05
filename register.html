@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REDSYNC - Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">REDSYNC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faq.html">FAQ & Tips</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-light btn-sm fw-bold me-2" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-light btn-sm text-danger fw-bold active" aria-current="page" href="register.html">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="register-section py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-7">
+                    <div class="card shadow-lg p-4 p-md-5">
+                        <div class="card-body">
+                            <h2 class="text-center mb-4 text-danger">Join REDSYNC - Register</h2>
+                            <p class="text-center mb-4">Choose your account type and fill in your details to get started.</p>
+
+                            <form id="registrationForm" novalidate>
+                                <div class="mb-3">
+                                    <label class="form-label d-block">Register As:</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="accountType" id="donorRadio" value="donor" checked>
+                                        <label class="form-check-label" for="donorRadio">Donor</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="accountType" id="recipientRadio" value="recipient">
+                                        <label class="form-check-label" for="recipientRadio">Recipient</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="fullName" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" required>
+                                    <div class="invalid-feedback">
+                                        Please enter your full name.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                    <div class="invalid-feedback">
+                                        Please enter a valid email address.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" required minlength="8">
+                                    <div class="form-text">
+                                        Password must be at least 8 characters long.
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Password must be at least 8 characters.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                    <div class="invalid-feedback">
+                                        Passwords do not match.
+                                    </div>
+                                </div>
+                                <div class="mb-3" id="bloodGroupField">
+                                    <label for="bloodGroup" class="form-label">Blood Group</label>
+                                    <select class="form-select" id="bloodGroup" required>
+                                        <option value="">Select your blood group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select your blood group.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contactNumber" class="form-label">Contact Number</label>
+                                    <input type="tel" class="form-control" id="contactNumber" required>
+                                    <div class="invalid-feedback">
+                                        Please enter your contact number.
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="location" class="form-label">Location (City/Area)</label>
+                                    <input type="text" class="form-control" id="location" placeholder="e.g., Dhaka, Gulshan" required>
+                                    <div class="invalid-feedback">
+                                        Please enter your location.
+                                    </div>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                                    <label class="form-check-label" for="termsCheck">I agree to the <a href="#">Terms and Conditions</a></label>
+                                    <div class="invalid-feedback">
+                                        You must agree to the terms and conditions.
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-danger btn-lg w-100">Register Account</button>
+                            </form>
+                            <p class="text-center mt-3">Already have an account? <a href="login.html">Login here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer bg-dark text-white-50 py-4">
+        <div class="container text-center text-md-start">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5 class="text-white">REDSYNC</h5>
+                    <p>Connecting lives through blood donation. Your trusted platform for urgent blood needs.</p>
+                </div>
+                <div class="col-md-2 mb-3 mb-md-0">
+                    <h5 class="text-white">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li><a href="about.html" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li><a href="contact.html" class="text-white-50 text-decoration-none">Contact</a></li>
+                        <li><a href="faq.html" class="text-white-50 text-decoration-none">FAQ & Tips</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <h5 class="text-white">Connect</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Facebook</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Twitter</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-white">Contact Us</h5>
+                    <p class="mb-0">123 Bloodline Street, Dhaka, Bangladesh</p>
+                    <p class="mb-0">info@redsync.com</p>
+                    <p>+880 1XXXXXXXXX</p>
+                </div>
+            </div>
+            <div class="text-center pt-3 border-top border-secondary mt-3">
+                <small>© 2025 REDSYNC. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registrationForm = document.getElementById('registrationForm');
+            const donorRadio = document.getElementById('donorRadio');
+            const recipientRadio = document.getElementById('recipientRadio');
+            const bloodGroupField = document.getElementById('bloodGroupField');
+            const passwordField = document.getElementById('password');
+            const confirmPasswordField = document.getElementById('confirmPassword');
+
+            // Toggle blood group field based on account type
+            function toggleBloodGroupField() {
+                if (donorRadio.checked) {
+                    bloodGroupField.style.display = 'block';
+                    bloodGroupField.querySelector('select').setAttribute('required', 'required');
+                } else {
+                    bloodGroupField.style.display = 'none';
+                    bloodGroupField.querySelector('select').removeAttribute('required');
+                }
+            }
+
+            donorRadio.addEventListener('change', toggleBloodGroupField);
+            recipientRadio.addEventListener('change', toggleBloodGroupField);
+
+            // Initial call to set visibility on page load
+            toggleBloodGroupField();
+
+            // Form validation for passwords
+            registrationForm.addEventListener('submit', function(event) {
+                if (!registrationForm.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                if (passwordField.value !== confirmPasswordField.value) {
+                    confirmPasswordField.setCustomValidity("Passwords do not match.");
+                } else {
+                    confirmPasswordField.setCustomValidity(""); // Clear custom validity message
+                }
+
+                registrationForm.classList.add('was-validated');
+
+                if (registrationForm.checkValidity() && (passwordField.value === confirmPasswordField.value)) {
+                    // Form is valid and passwords match, proceed with submission
+                    alert('Registration successful! Please login with your new account.');
+                    // In a real application, you would send this data to your Laravel backend
+                    /*
+                    const formData = {
+                        accountType: document.querySelector('input[name="accountType"]:checked').value,
+                        fullName: document.getElementById('fullName').value,
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value,
+                        bloodGroup: donorRadio.checked ? document.getElementById('bloodGroup').value : null,
+                        contactNumber: document.getElementById('contactNumber').value,
+                        location: document.getElementById('location').value
+                    };
+
+                    fetch('/api/register', { // Replace with your Laravel registration endpoint
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': 'YOUR_CSRF_TOKEN_HERE' // Important for Laravel
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        // Redirect to login
+                        window.location.href = 'login.html';
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        // Show error message to user
+                    });
+                    */
+                    registrationForm.reset(); // Clear form after 'successful' submission
+                    registrationForm.classList.remove('was-validated'); // Remove validation styles
+                    window.location.href = 'login.html'; // DEMO: Redirect directly for frontend demo
+                }
+            }, false); // End submit event listener
+        });
+    </script>
+</body>
+</html>

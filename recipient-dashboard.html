@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REDSYNC - Recipient Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div id="notificationContainer" class="toast-container position-fixed top-0 end-0 p-3">
+        </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">REDSYNC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faq.html">FAQ & Tips</a>
+                    </li>
+                    <li class="nav-item ms-lg-3 dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> Welcome, Recipient!
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#request-blood-section">Submit Request</a></li>
+                            <li><a class="dropdown-item" href="#donor-matches-section">View Matches</a></li>
+                            <li><a class="dropdown-item" href="#search-donors-section">Search Donors</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="login.html" id="logoutButton">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center text-danger">Recipient Dashboard</h1>
+        <p class="lead text-center mb-5">Submit blood requests, view potential donor matches, and search for donors.</p>
+
+        <section id="request-blood-section" class="card shadow-lg p-4 mb-5">
+            <h2 class="card-title text-danger mb-4"><i class="fas fa-hand-holding-medical me-2"></i> Submit New Blood Request</h2>
+            <form id="bloodRequestForm">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="requiredBloodGroup" class="form-label">Blood Group Needed</label>
+                        <select class="form-select" id="requiredBloodGroup" required>
+                            <option value="">Select blood group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a blood group.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="quantity" class="form-label">Quantity Needed (Units)</label>
+                        <input type="number" class="form-control" id="quantity" min="1" value="1" required>
+                        <div class="invalid-feedback">Please enter a valid quantity.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="urgency" class="form-label">Urgency</label>
+                        <select class="form-select" id="urgency" required>
+                            <option value="">Select urgency level</option>
+                            <option value="immediate">Immediate (within 6 hours)</option>
+                            <option value="urgent">Urgent (within 24 hours)</option>
+                            <option value="standard">Standard (within 3 days)</option>
+                        </select>
+                        <div class="invalid-feedback">Please select urgency.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="neededByDate" class="form-label">Needed By Date</label>
+                        <input type="date" class="form-control" id="neededByDate" required>
+                        <div class="invalid-feedback">Please select a date.</div>
+                    </div>
+                    <div class="col-12">
+                        <label for="hospitalLocation" class="form-label">Hospital/Donation Location (Full Address)</label>
+                        <input type="text" class="form-control" id="hospitalLocation" placeholder="e.g., Dhaka Medical College Hospital, Dhaka" required>
+                        <div class="invalid-feedback">Please enter the hospital or donation location.</div>
+                    </div>
+                    <div class="col-12">
+                        <label for="notes" class="form-label">Additional Notes (Optional)</label>
+                        <textarea class="form-control" id="notes" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-danger btn-lg">Submit Request</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="donor-matches-section" class="card shadow-lg p-4 mb-5">
+            <h2 class="card-title text-danger mb-4"><i class="fas fa-heart-pulse me-2"></i> Your Blood Request Matches</h2>
+            <div class="alert alert-info" role="alert">
+                Matches are updated live. Click 'Contact Donor' to send them a notification about your request.
+            </div>
+            <div id="donorMatchesContainer">
+                <div class="card mb-3 match-card" data-donor-id="D001">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="card-title text-success">Potential Donor Found!</h5>
+                                <p class="card-text mb-1"><i class="fas fa-tint me-2"></i> **Blood Group:** O+</p>
+                                <p class="card-text mb-1"><i class="fas fa-location-dot me-2"></i> **Proximity:** ~3.5 km away</p>
+                                <p class="card-text mb-1"><i class="fas fa-calendar-check me-2"></i> **Availability:** Active, next donation possible after June 10, 2025</p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <button class="btn btn-primary contact-donor-btn" data-donor-id="D001">Contact Donor</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3 match-card" data-donor-id="D002">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="card-title text-success">Potential Donor Found!</h5>
+                                <p class="card-text mb-1"><i class="fas fa-tint me-2"></i> **Blood Group:** A-</p>
+                                <p class="card-text mb-1"><i class="fas fa-location-dot me-2"></i> **Proximity:** ~8.1 km away</p>
+                                <p class="card-text mb-1"><i class="fas fa-calendar-check me-2"></i> **Availability:** Active, next donation possible after July 1, 2025</p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <button class="btn btn-primary contact-donor-btn" data-donor-id="D002">Contact Donor</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-center text-muted mt-4">No new matches at the moment. Keep checking!</p>
+            </div>
+        </section>
+
+        <section id="search-donors-section" class="card shadow-lg p-4 mb-5">
+            <h2 class="card-title text-danger mb-4"><i class="fas fa-search me-2"></i> Search & Filter Donors</h2>
+            <form id="donorSearchForm" class="mb-4">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="searchBloodGroup" class="form-label">Blood Group</label>
+                        <select class="form-select" id="searchBloodGroup">
+                            <option value="">Any</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="searchLocation" class="form-label">Location (City/Area)</label>
+                        <input type="text" class="form-control" id="searchLocation" placeholder="e.g., Dhaka, Gulshan">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="sortBy" class="form-label">Sort By</label>
+                        <select class="form-select" id="sortBy">
+                            <option value="relevance">Relevance</option>
+                            <option value="lastDonationDate">Last Donation Date (Asc)</option>
+                            <option value="lastDonationDateDesc">Last Donation Date (Desc)</option>
+                            <option value="availability">Availability</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-filter me-2"></i> Apply Filters</button>
+                </div>
+            </form>
+
+            <div id="donorSearchResults" class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="card h-100 shadow-sm donor-search-card" data-donor-id="D003">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">Donor: Jane Smith</h5>
+                            <p class="card-text mb-1"><i class="fas fa-tint me-2"></i> **Blood Group:** O+</p>
+                            <p class="card-text mb-1"><i class="fas fa-map-marker-alt me-2"></i> **Location:** Mirpur, Dhaka</p>
+                            <p class="card-text mb-1"><i class="fas fa-calendar-alt me-2"></i> **Last Donation:** 2025-04-15</p>
+                            <p class="card-text mb-1"><i class="fas fa-toggle-on me-2"></i> **Availability:** <span class="badge bg-success">Active</span></p>
+                            <div class="text-end mt-3">
+                                <button class="btn btn-sm btn-primary contact-donor-btn" data-donor-id="D003">Contact Donor</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm donor-search-card" data-donor-id="D004">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">Donor: Robert Johnson</h5>
+                            <p class="card-text mb-1"><i class="fas fa-tint me-2"></i> **Blood Group:** A-</p>
+                            <p class="card-text mb-1"><i class="fas fa-map-marker-alt me-2"></i> **Location:** Gulshan, Dhaka</p>
+                            <p class="card-text mb-1"><i class="fas fa-calendar-alt me-2"></i> **Last Donation:** 2024-11-20</p>
+                            <p class="card-text mb-1"><i class="fas fa-toggle-on me-2"></i> **Availability:** <span class="badge bg-success">Active</span></p>
+                            <div class="text-end mt-3">
+                                <button class="btn btn-sm btn-primary contact-donor-btn" data-donor-id="D004">Contact Donor</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm donor-search-card" data-donor-id="D005">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">Donor: Emily White</h5>
+                            <p class="card-text mb-1"><i class="fas fa-tint me-2"></i> **Blood Group:** B+</p>
+                            <p class="card-text mb-1"><i class="fas fa-map-marker-alt me-2"></i> **Location:** Banani, Dhaka</p>
+                            <p class="card-text mb-1"><i class="fas fa-calendar-alt me-2"></i> **Last Donation:** 2025-02-01</p>
+                            <p class="card-text mb-1"><i class="fas fa-toggle-on me-2"></i> **Availability:** <span class="badge bg-secondary">Unavailable</span></p>
+                            <div class="text-end mt-3">
+                                <button class="btn btn-sm btn-primary contact-donor-btn" data-donor-id="D005">Contact Donor</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-muted mt-4" id="noSearchResults" style="display: none;">No donors found matching your criteria.</p>
+        </section>
+
+    </div>
+
+    <footer class="footer bg-dark text-white-50 py-4 mt-5">
+        <div class="container text-center text-md-start">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5 class="text-white">REDSYNC</h5>
+                    <p>Connecting lives through blood donation. Your trusted platform for urgent blood needs.</p>
+                </div>
+                <div class="col-md-2 mb-3 mb-md-0">
+                    <h5 class="text-white">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li><a href="about.html" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li><a href="contact.html" class="text-white-50 text-decoration-none">Contact</a></li>
+                        <li><a href="faq.html" class="text-white-50 text-decoration-none">FAQ & Tips</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <h5 class="text-white">Connect</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Facebook</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Twitter</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-white">Contact Us</h5>
+                    <p class="mb-0">123 Bloodline Street, Dhaka, Bangladesh</p>
+                    <p class="mb-0">info@redsync.com</p>
+                    <p>+880 1XXXXXXXXX</p>
+                </div>
+            </div>
+            <div class="text-center pt-3 border-top border-secondary mt-3">
+                <small>© 2025 REDSYNC. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Set minimum date for "Needed By Date" to today ---
+            const neededByDateInput = document.getElementById('neededByDate');
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = (today.getMonth() + 1).toString().padStart(2, '0');
+            const day = today.getDate().toString().padStart(2, '0');
+            neededByDateInput.min = `${year}-${month}-${day}`;
+
+            // --- Submit Blood Request Form ---
+            const bloodRequestForm = document.getElementById('bloodRequestForm');
+            bloodRequestForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                if (!bloodRequestForm.checkValidity()) {
+                    event.stopPropagation();
+                    bloodRequestForm.classList.add('was-validated');
+                    return;
+                }
+
+                const formData = {
+                    bloodGroup: document.getElementById('requiredBloodGroup').value,
+                    quantity: document.getElementById('quantity').value,
+                    urgency: document.getElementById('urgency').value,
+                    neededByDate: document.getElementById('neededByDate').value,
+                    hospitalLocation: document.getElementById('hospitalLocation').value,
+                    notes: document.getElementById('notes').value
+                };
+
+                window.showNotification('Your blood request has been submitted successfully!', 'success', 'Request Submitted');
+                console.log('Submitted Blood Request:', formData);
+
+                // In a real application, you would send this data to your Laravel backend
+                /*
+                fetch('/api/blood-request', { // Replace with your Laravel endpoint
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': 'YOUR_CSRF_TOKEN_HERE' // Important for Laravel
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Request success:', data);
+                    showNotification('Your blood request has been submitted successfully!', 'success', 'Request Submitted');
+                    bloodRequestForm.reset(); // Clear the form
+                    bloodRequestForm.classList.remove('was-validated');
+                    // Optionally, trigger a refresh of donor matches
+                    // fetchDonorMatches();
+                })
+                .catch(error => {
+                    console.error('Request error:', error);
+                    showNotification('An error occurred while submitting your request. Please try again.', 'danger', 'Submission Failed');
+                });
+                */
+
+                bloodRequestForm.reset();
+                bloodRequestForm.classList.remove('was-validated');
+            });
+
+            // --- Contact Donor Logic (for existing matches and search results) ---
+            const mainContent = document.querySelector('main') || document.body; // Use a more general parent for delegated events
+
+            mainContent.addEventListener('click', function(event) {
+                const target = event.target;
+                if (target.classList.contains('contact-donor-btn')) {
+                    const donorId = target.dataset.donorId;
+                    window.showNotification(`Notification sent to Donor ${donorId}! They will contact you via registered method if they are available to donate.`, 'info', 'Donor Contacted');
+                    console.log(`Attempted to contact donor ${donorId}.`);
+
+                    // In a real application, you would make an API call to your backend
+                    // to notify the donor and log the contact attempt.
+                    /*
+                    fetch(`/api/contact-donor/${donorId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': 'YOUR_CSRF_TOKEN_HERE'
+                        },
+                        body: JSON.stringify({ requestId: 'CURRENT_REQUEST_ID_HERE' }) // Pass relevant request ID
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showNotification('Donor notified successfully!', 'success', 'Donor Notified');
+                            // Disable the button after contact attempt or change its text
+                            target.disabled = true;
+                            target.textContent = 'Notification Sent';
+                        } else {
+                            showNotification(data.message || 'Failed to notify donor.', 'danger', 'Notification Failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error contacting donor:', error);
+                        showNotification('An error occurred while trying to contact the donor. Please try again later.', 'danger', 'Error');
+                    });
+                    */
+                }
+            });
+
+            // --- Simulate Live Donor Matches (for frontend demo) ---
+            // In a real scenario, this would be fetched from the backend (e.g., via AJAX polling or WebSockets)
+            // function fetchDonorMatches() {
+            //     console.log("Fetching live donor matches...");
+            //     // Example: fetch('/api/recipient/matches?request_id=current_active_request_id')
+            //     // .then(response => response.json())
+            //     // .then(data => { /* Render data */ });
+            // }
+            // setInterval(fetchDonorMatches, 30000); // Poll every 30 seconds for new matches
+            // fetchDonorMatches(); // Initial fetch on page load
+
+
+            // --- Donor Search & Filter Logic ---
+            const donorSearchForm = document.getElementById('donorSearchForm');
+            const searchBloodGroup = document.getElementById('searchBloodGroup');
+            const searchLocation = document.getElementById('searchLocation');
+            const sortBy = document.getElementById('sortBy');
+            const donorSearchResultsContainer = document.getElementById('donorSearchResults');
+            const noSearchResultsMessage = document.getElementById('noSearchResults');
+
+            // Dummy donor data for frontend demonstration
+            const allDonors = [
+                { id: 'D001', name: 'Alice Wonderland', bloodGroup: 'O+', location: 'Gulshan, Dhaka', lastDonation: '2025-04-01', availability: 'Active' },
+                { id: 'D002', name: 'Bob The Builder', bloodGroup: 'A-', location: 'Mirpur, Dhaka', lastDonation: '2024-11-20', availability: 'Active' },
+                { id: 'D003', name: 'Jane Smith', bloodGroup: 'O+', location: 'Mirpur, Dhaka', lastDonation: '2025-04-15', availability: 'Active' },
+                { id: 'D004', name: 'Robert Johnson', bloodGroup: 'A-', location: 'Gulshan, Dhaka', lastDonation: '2024-11-20', availability: 'Active' },
+                { id: 'D005', name: 'Emily White', bloodGroup: 'B+', location: 'Banani, Dhaka', lastDonation: '2025-02-01', availability: 'Unavailable' },
+                { id: 'D006', name: 'Chris Evans', bloodGroup: 'AB+', location: 'Dhanmondi, Dhaka', lastDonation: '2025-03-10', availability: 'Active' },
+                { id: 'D007', name: 'Diana Prince', bloodGroup: 'B-', location: 'Baridhara, Dhaka', lastDonation: '2025-01-25', availability: 'Active' },
+                { id: 'D008', name: 'Steve Rogers', bloodGroup: 'O-', location: 'Uttara, Dhaka', lastDonation: '2024-10-05', availability: 'Active' },
+            ];
+
+            function renderDonors(donors) {
+                donorSearchResultsContainer.innerHTML = ''; // Clear previous results
+                if (donors.length === 0) {
+                    noSearchResultsMessage.style.display = 'block';
+                } else {
+                    noSearchResultsMessage.style.display = 'none';
+                    donors.forEach(donor => {
+                        const availabilityBadge = donor.availability === 'Active' ? 'bg-success' : 'bg-secondary';
+                        const donorCardHtml = `
+                            <div class="col">
+                                <div class="card h-100 shadow-sm donor-search-card" data-donor-id="${donor.id}">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-danger">Donor: ${donor.name}</h5>
+                                        <p class="card-text mb-1"><i class="fas fa-tint me-2"></i> **Blood Group:** ${donor.bloodGroup}</p>
+                                        <p class="card-text mb-1"><i class="fas fa-map-marker-alt me-2"></i> **Location:** ${donor.location}</p>
+                                        <p class="card-text mb-1"><i class="fas fa-calendar-alt me-2"></i> **Last Donation:** ${donor.lastDonation}</p>
+                                        <p class="card-text mb-1"><i class="fas fa-toggle-on me-2"></i> **Availability:** <span class="badge ${availabilityBadge}">${donor.availability}</span></p>
+                                        <div class="text-end mt-3">
+                                            <button class="btn btn-sm btn-primary contact-donor-btn" data-donor-id="${donor.id}">Contact Donor</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        donorSearchResultsContainer.insertAdjacentHTML('beforeend', donorCardHtml);
+                    });
+                }
+            }
+
+            function filterAndSortDonors() {
+                let filteredDonors = [...allDonors]; // Start with a copy of all donors
+
+                const bloodGroup = searchBloodGroup.value;
+                const location = searchLocation.value.toLowerCase().trim();
+                const sortOption = sortBy.value;
+
+                // Filter by Blood Group
+                if (bloodGroup) {
+                    filteredDonors = filteredDonors.filter(donor => donor.bloodGroup === bloodGroup);
+                }
+
+                // Filter by Location
+                if (location) {
+                    filteredDonors = filteredDonors.filter(donor =>
+                        donor.location.toLowerCase().includes(location)
+                    );
+                }
+
+                // Sort Results
+                if (sortOption === 'lastDonationDate') { // Ascending
+                    filteredDonors.sort((a, b) => new Date(a.lastDonation) - new Date(b.lastDonation));
+                } else if (sortOption === 'lastDonationDateDesc') { // Descending
+                    filteredDonors.sort((a, b) => new Date(b.lastDonation) - new Date(a.lastDonation));
+                } else if (sortOption === 'availability') {
+                    // Active donors first, then unavailable
+                    filteredDonors.sort((a, b) => {
+                        if (a.availability === 'Active' && b.availability !== 'Active') return -1;
+                        if (a.availability !== 'Active' && b.availability === 'Active') return 1;
+                        return 0;
+                    });
+                }
+                // 'relevance' (default) implies no specific sorting beyond initial order or backend relevance
+
+                renderDonors(filteredDonors);
+            }
+
+            donorSearchForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+                filterAndSortDonors();
+                window.showNotification('Donor search results updated!', 'info', 'Search Results');
+            });
+
+            // Initial render of all donors when the page loads
+            filterAndSortDonors(); // Call to display initial list
+        });
+    </script>
+</body>
+</html>

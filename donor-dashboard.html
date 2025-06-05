@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REDSYNC - Donor Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div id="notificationContainer" class="toast-container position-fixed top-0 end-0 p-3">
+        </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">REDSYNC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faq.html">FAQ & Tips</a>
+                    </li>
+                    <li class="nav-item ms-lg-3 dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> Welcome, Donor!
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#profile-section">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#requests-section">Blood Requests</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="login.html" id="logoutButton">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center text-danger">Donor Dashboard</h1>
+        <p class="lead text-center mb-5">Manage your profile, availability, and view urgent blood requests.</p>
+
+        <section id="profile-section" class="card shadow-lg p-4 mb-5">
+            <h2 class="card-title text-danger mb-4"><i class="fas fa-user-edit me-2"></i> Your Profile</h2>
+            <form id="donorProfileForm">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="profileName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="profileName" value="John Doe" disabled required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="profileEmail" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="profileEmail" value="john.doe@example.com" disabled required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="profileBloodGroup" class="form-label">Blood Group</label>
+                        <input type="text" class="form-control" id="profileBloodGroup" value="O+" disabled required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="profileContact" class="form-label">Contact Number</label>
+                        <input type="tel" class="form-control" id="profileContact" value="+880 1712345678" disabled required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="profileLocation" class="form-label">Location (City/Area)</label>
+                        <input type="text" class="form-control" id="profileLocation" value="Dhaka, Gulshan" disabled required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastDonationDate" class="form-label">Last Donation Date</label>
+                        <input type="date" class="form-control" id="lastDonationDate" value="2025-03-01" disabled>
+                        <div class="form-text">Next eligible donation: 06/01/2025 (approx.)</div>
+                    </div>
+                </div>
+                <div class="mt-4 text-end">
+                    <button type="button" class="btn btn-outline-danger" id="editProfileBtn">Edit Profile</button>
+                    <button type="submit" class="btn btn-danger d-none" id="saveProfileBtn">Save Changes</button>
+                    <button type="button" class="btn btn-secondary d-none" id="cancelEditBtn">Cancel</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="availability-section" class="card shadow-lg p-4 mb-5">
+            <h2 class="card-title text-danger mb-4"><i class="fas fa-toggle-on me-2"></i> Set Your Availability</h2>
+            <div class="form-check form-switch d-flex align-items-center">
+                <input class="form-check-input me-3" type="checkbox" id="availabilitySwitch" checked>
+                <label class="form-check-label h5 mb-0" for="availabilitySwitch" id="availabilityStatusText">You are currently: <span class="badge bg-success">Active</span></label>
+            </div>
+            <small class="text-muted mt-2">Set to 'Active' to receive blood requests. Set to 'Unavailable' if you cannot donate right now.</small>
+        </section>
+
+        <section id="requests-section" class="card shadow-lg p-4 mb-5">
+            <h2 class="card-title text-danger mb-4"><i class="fas fa-search-location me-2"></i> Nearby Blood Requests</h2>
+            <div class="alert alert-info" role="alert">
+                Displaying requests within 20 km of your registered location (Dhaka, Gulshan).
+            </div>
+            <div id="bloodRequestsContainer">
+                <div class="card mb-3 request-card" data-request-id="1">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="card-title text-danger">Urgent A+ Blood Needed!</h5>
+                                <p class="card-text mb-1"><i class="fas fa-tint me-2"></i> **Blood Group:** A+</p>
+                                <p class="card-text mb-1"><i class="fas fa-map-marker-alt me-2"></i> **Location:** Dhanmondi, Dhaka (5.2 km away)</p>
+                                <p class="card-text mb-1"><i class="fas fa-calendar-alt me-2"></i> **Needed By:** June 6, 2025</p>
+                                <p class="card-text mb-1"><i class="fas fa-hospital me-2"></i> **Hospital:** Green Life Hospital</p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <button class="btn btn-success me-2 accept-btn" data-request-id="1">Accept</button>
+                                <button class="btn btn-outline-secondary decline-btn" data-request-id="1">Decline</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3 request-card" data-request-id="2">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="card-title text-danger">B- Negative Blood Required!</h5>
+                                <p class="card-text mb-1"><i class="fas fa-tint me-2"></i> **Blood Group:** B-</p>
+                                <p class="card-text mb-1"><i class="fas fa-map-marker-alt me-2"></i> **Location:** Mirpur, Dhaka (12.8 km away)</p>
+                                <p class="card-text mb-1"><i class="fas fa-calendar-alt me-2"></i> **Needed By:** June 7, 2025</p>
+                                <p class="card-text mb-1"><i class="fas fa-hospital me-2"></i> **Hospital:** Square Hospital</p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <button class="btn btn-success me-2 accept-btn" data-request-id="2">Accept</button>
+                                <button class="btn btn-outline-secondary decline-btn" data-request-id="2">Decline</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3 request-card" data-request-id="3">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="card-title text-danger">O+ Blood for Pediatric Patient</h5>
+                                <p class="card-text mb-1"><i class="fas fa-tint me-2"></i> **Blood Group:** O+</p>
+                                <p class="card-text mb-1"><i class="fas fa-map-marker-alt me-2"></i> **Location:** Bashundhara R/A, Dhaka (8.1 km away)</p>
+                                <p class="card-text mb-1"><i class="fas fa-calendar-alt me-2"></i> **Needed By:** June 5, 2025 (Today)</p>
+                                <p class="card-text mb-1"><i class="fas fa-hospital me-2"></i> **Hospital:** Evercare Hospital Dhaka</p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                <button class="btn btn-success me-2 accept-btn" data-request-id="3">Accept</button>
+                                <button class="btn btn-outline-secondary decline-btn" data-request-id="3">Decline</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-center text-muted mt-4">No more requests found at the moment.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer bg-dark text-white-50 py-4 mt-5">
+        <div class="container text-center text-md-start">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5 class="text-white">REDSYNC</h5>
+                    <p>Connecting lives through blood donation. Your trusted platform for urgent blood needs.</p>
+                </div>
+                <div class="col-md-2 mb-3 mb-md-0">
+                    <h5 class="text-white">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li><a href="about.html" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li><a href="contact.html" class="text-white-50 text-decoration-none">Contact</a></li>
+                        <li><a href="faq.html" class="text-white-50 text-decoration-none">FAQ & Tips</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <h5 class="text-white">Connect</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none">Facebook</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Twitter</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-white">Contact Us</h5>
+                    <p class="mb-0">123 Bloodline Street, Dhaka, Bangladesh</p>
+                    <p class="mb-0">info@redsync.com</p>
+                    <p>+880 1XXXXXXXXX</p>
+                </div>
+            </div>
+            <div class="text-center pt-3 border-top border-secondary mt-3">
+                <small>© 2025 REDSYNC. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Profile Management ---
+            const profileForm = document.getElementById('donorProfileForm');
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            const saveProfileBtn = document.getElementById('saveProfileBtn');
+            const cancelEditBtn = document.getElementById('cancelEditBtn');
+            const profileFields = profileForm.querySelectorAll('input, select');
+
+            function toggleEditMode(enable) {
+                profileFields.forEach(field => {
+                    if (field.id !== 'profileBloodGroup' && field.id !== 'lastDonationDate') { // Blood group and last donation date are typically not editable by user
+                        field.disabled = !enable;
+                    }
+                });
+                editProfileBtn.classList.toggle('d-none', enable);
+                saveProfileBtn.classList.toggle('d-none', !enable);
+                cancelEditBtn.classList.toggle('d-none', !enable);
+            }
+
+            editProfileBtn.addEventListener('click', () => toggleEditMode(true));
+            cancelEditBtn.addEventListener('click', () => toggleEditMode(false));
+
+            profileForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                // In a real app, send updated data to backend via Fetch API
+                window.showNotification('Your profile has been updated successfully!', 'success', 'Profile Updated');
+                console.log('Updated Profile Data:', {
+                    fullName: document.getElementById('profileName').value,
+                    email: document.getElementById('profileEmail').value,
+                    contact: document.getElementById('profileContact').value,
+                    location: document.getElementById('profileLocation').value
+                });
+                toggleEditMode(false); // Disable edit mode after saving
+            });
+
+            // --- Availability Toggle ---
+            const availabilitySwitch = document.getElementById('availabilitySwitch');
+            const availabilityStatusText = document.getElementById('availabilityStatusText');
+
+            availabilitySwitch.addEventListener('change', function() {
+                if (this.checked) {
+                    availabilityStatusText.innerHTML = 'You are currently: <span class="badge bg-success">Active</span>';
+                    window.showNotification('Your availability is set to Active. You will now receive blood requests.', 'info', 'Availability Status');
+                    // Send to backend: /api/donor/set-availability?status=active
+                } else {
+                    availabilityStatusText.innerHTML = 'You are currently: <span class="badge bg-secondary">Unavailable</span>';
+                    window.showNotification('Your availability is set to Unavailable. You will not receive blood requests.', 'warning', 'Availability Status');
+                    // Send to backend: /api/donor/set-availability?status=unavailable
+                }
+            });
+
+            // --- Blood Request Actions ---
+            const bloodRequestsContainer = document.getElementById('bloodRequestsContainer');
+
+            bloodRequestsContainer.addEventListener('click', function(event) {
+                const target = event.target;
+                const requestId = target.dataset.requestId;
+                const requestCard = target.closest('.request-card');
+
+                if (target.classList.contains('accept-btn')) {
+                    if (confirm(`Are you sure you want to accept this request (ID: ${requestId})?`)) {
+                        window.showNotification(`Request ${requestId} accepted! Please contact the recipient (backend will handle this).`, 'success', 'Request Accepted');
+                        // Send to backend: /api/donor/accept-request/${requestId}
+                        if (requestCard) {
+                            requestCard.remove(); // Remove the request from display
+                        }
+                    }
+                } else if (target.classList.contains('decline-btn')) {
+                    if (confirm(`Are you sure you want to decline this request (ID: ${requestId})?`)) {
+                        window.showNotification(`Request ${requestId} declined.`, 'secondary', 'Request Declined'); // 'secondary' for a neutral message
+                        // Send to backend: /api/donor/decline-request/${requestId}
+                        if (requestCard) {
+                            requestCard.remove(); // Remove the request from display
+                        }
+                    }
+                }
+            });
+
+            // Simulate fetching requests from backend (in real app, this would be a fetch call)
+            // function fetchBloodRequests() {
+            //     fetch('/api/donor/blood-requests') // Replace with your Laravel endpoint
+            //         .then(response => response.json())
+            //         .then(data => {
+            //             // Render requests dynamically here
+            //             // Example: data.forEach(request => { createRequestCard(request); });
+            //         })
+            //         .catch(error => console.error('Error fetching blood requests:', error));
+            // }
+            // fetchBloodRequests(); // Call on page load
+        });
+    </script>
+</body>
+</html>
